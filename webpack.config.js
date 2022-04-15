@@ -118,8 +118,8 @@ const config = {
     historyApiFallback: true,
     host: 'localhost',
     https: !!process.env.FAST_TRACK, // use https for fast tracking to stage
-    port: 3001,
-    public: 'local.vtagz.com:3001',
+    port: 8080,
+    public: 'local.vtagz.com:8080',
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,

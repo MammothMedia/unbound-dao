@@ -81,6 +81,21 @@ export default class HomePage extends Component {
     });
   }
 
+  async unstake() {
+    scope.setState({
+      disabled: true,
+      unstaking: true,
+    });
+    const txn = await scope.staking.unstake();
+    await txn.wait(1);
+    scope.setState({
+      disabled: false,
+      unstaking: false,
+    });
+    scope.getBalance();
+    scope.getStakedBalance();
+  }
+
   async getRewardsBalance() {
     const balance = await scope.staking.rewardsBalanceOf(
       scope.props.address,
@@ -93,10 +108,17 @@ export default class HomePage extends Component {
 
   async stake() {
     const { stakeAmount } = scope.state;
-    scope.setState({ staking: true });
+    scope.setState({
+      staking: true,
+      disabled: true,
+    });
     const txn = await scope.staking.stake(ethers.utils.parseUnits(stakeAmount));
     await txn.wait(1);
-    scope.setState({ staking: false, stakeAmount: 0 });
+    scope.setState({
+      staking: false,
+      stakeAmount: 0,
+      disabled: false,
+    });
     scope.getBalance();
     scope.getStakedBalance();
   }
@@ -119,11 +141,28 @@ export default class HomePage extends Component {
                 }
               />
               <button
-                disabled={scope.state.staking}
+                disabled={scope.state.staking || scope.state.disabled}
                 type='button'
                 onClick={() => scope.stake()}
               >
                 Stake
+              </button>
+            </>
+          )}
+        </div>
+
+        <div id='unstake'>
+          <h5>Unstake</h5>
+          {scope.state.unstaking ? (
+            <h4>...Unstaking</h4>
+          ) : (
+            <>
+              <button
+                disabled={scope.state.unstaking || scope.state.disabled}
+                type='button'
+                onClick={() => scope.unstake()}
+              >
+                Unstake
               </button>
             </>
           )}
