@@ -1,0 +1,70 @@
+@import '~bootstrap/dist/css/bootstrap.css'
+
+// Colors
+$black = #252525
+$background = rgb(255,255,255)
+$gradient = linear-gradient(135deg, #57EACB 0%, #44A2FB 51.74%, #C345FE 100%);
+$purple = #671e90
+$red = #f55151
+$blue = #008cfe
+$orange = #d47617
+
+html
+  height 100vh
+body
+  color $black
+  background #FFF
+  font-family 'Montserrat', sans-serif
+  &.main
+    background $background
+  &.loading
+    background $gradient
+
+svg
+  overflow visible
+
+h1,h2,h3,h4,h5,h6,label
+  margin 0px
+
+a
+  text-decoration none
+.error
+  color #ff6c6c
+.v-gap
+  width 100%
+  height 20px
+.h-gap
+  display inline-block
+  height 100%
+  width 10px
+.alert
+  margin-top 16px
+
+#app
+  display flex
+  flex-direction column
+  min-height 100vh
+  height 100%
+  position relative
+
+#footer
+  display flex
+  align-items center
+  width 100%
+  height 90px
+  margin-top 32px
+  border-top 1px solid #e5e5e6
+  .container
+    display flex
+    justify-content space-between
+  .nav-link
+    color rgba(5, 4, 12, 0.5)
+    padding-left 1.5rem
+    padding-right 1.5rem
+    &:first-child
+      padding-left 0
+      margin-left 20px
+
+div
+  text-align center
+  padding 10px
