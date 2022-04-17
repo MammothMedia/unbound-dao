@@ -7,7 +7,7 @@ import { ethers } from 'ethers';
 //import Header from '../components/Header';
 //import Footer from '../components/Footer';
 import HomePage from '../containers/HomePage';
-import { googleTrackingId, isProduction } from '../config';
+import { tokenAddress, googleTrackingId, isProduction } from '../config';
 import { debounce, getWindowWidth, addClass, removeClass } from '../utils';
 // This function detects most providers injected at window.ethereum
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -85,6 +85,7 @@ class App extends Component {
       });
     }
   }
+
   getMainRoutes() {
     return (
       <div id='content'>
@@ -105,6 +106,25 @@ class App extends Component {
     );
   }
 
+  async addToken() {
+    const { provider } = scope.state;
+    if (!provider) {
+      return;
+    }
+    await ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20', // Initially only supports ERC20, but eventually more!
+        options: {
+          address: tokenAddress,
+          symbol: '$GFTY',
+          decimals: 18,
+          //image: tokenImage,
+        },
+      },
+    });
+  }
+
   render() {
     let content = null;
     const { state } = scope;
@@ -122,7 +142,30 @@ class App extends Component {
     if (!state.isMumbai) {
       return <h5>Please approve Metamask to switch to the Mumbai Network</h5>;
     }
-    return <>{content}</>;
+    return (
+      <>
+        {content}
+        <footer>
+          <a href='#' onClick={() => scope.addToken()}>
+            Import Token to Metamask
+          </a>
+          <a
+            href='https://mumbai.polygonscan.com/address/0xC92D014d0D0590183c078660D0944d653297bB4F'
+            target='_blank'
+            rel='noreferrer'
+          >
+            View Token Contract
+          </a>
+          <a
+            href='https://mumbai.polygonscan.com/address/0x5B55Fa515c3d9A3c36429c22b786c46F8c4E8e24'
+            target='_blank'
+            rel='noreferrer'
+          >
+            View Staking Contract
+          </a>
+        </footer>
+      </>
+    );
   }
 }
 
