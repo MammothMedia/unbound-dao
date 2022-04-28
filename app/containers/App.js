@@ -126,9 +126,7 @@ class App extends Component {
   }
 
   render() {
-    let content = null;
     const { state } = scope;
-    content = scope.getMainRoutes();
 
     if (state.loading) {
       return (
@@ -142,6 +140,7 @@ class App extends Component {
     if (!state.isMumbai) {
       return <h5>Please approve Metamask to switch to the Mumbai Network</h5>;
     }
+    const content = scope.getMainRoutes();
     return (
       <>
         {content}
