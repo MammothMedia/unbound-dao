@@ -7,7 +7,12 @@ import { ethers } from 'ethers';
 //import Header from '../components/Header';
 //import Footer from '../components/Footer';
 import HomePage from '../containers/HomePage';
-import { tokenAddress, googleTrackingId, isProduction } from '../config';
+import {
+  tokenAddress,
+  stakingAddress,
+  googleTrackingId,
+  isProduction,
+} from '../config';
 import { debounce, getWindowWidth, addClass, removeClass } from '../utils';
 // This function detects most providers injected at window.ethereum
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -149,14 +154,14 @@ class App extends Component {
             Import Token to Metamask
           </a>
           <a
-            href='https://mumbai.polygonscan.com/address/0xC92D014d0D0590183c078660D0944d653297bB4F'
+            href={`https://mumbai.polygonscan.com/address/${tokenAddress}`}
             target='_blank'
             rel='noreferrer'
           >
             View Token Contract
           </a>
           <a
-            href='https://mumbai.polygonscan.com/address/0x5B55Fa515c3d9A3c36429c22b786c46F8c4E8e24'
+            href={`https://mumbai.polygonscan.com/address/${stakingAddress}`}
             target='_blank'
             rel='noreferrer'
           >
