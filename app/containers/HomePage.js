@@ -126,7 +126,7 @@ export default class HomePage extends Component {
       scope.now
     );
     scope.setState({
-      rewardsBalance: balance ? 0 : ethers.utils.formatUnits(balance),
+      rewardsBalance: Number(ethers.utils.formatUnits(balance)).toFixed(2),
     });
   }
 
